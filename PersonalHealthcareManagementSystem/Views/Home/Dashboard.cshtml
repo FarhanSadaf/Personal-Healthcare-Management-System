@@ -1,0 +1,323 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.NavBarId = "Dashboard";
+}
+
+    <div class="container">
+        <div class="row mt-1 mb-1">
+            <div class="col text-center">
+                <img width="100" src="~/Images/dashboard.png" />
+                <h3>Dashboard</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card border-info">
+                    <div class="card-body">
+                        <canvas id="bmiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-danger">
+                    <div class="card-body">
+                        <canvas id="bmrChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="card border-warning">
+                    <div class="card-body">
+                        <canvas id="dietChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <canvas id="fitnessChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-7 mx-auto">
+                <div class="card border-info">
+                    <div class="card-body">
+                        <canvas id="bpChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section scripts{
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var bmiVals = @Html.Raw(Json.Encode(ViewBag.BmiVals));
+            var bmrVals = @Html.Raw(Json.Encode(ViewBag.BmrVals));
+            var dietVals = @Html.Raw(Json.Encode(ViewBag.DietVals));
+            var bpVals = @Html.Raw(Json.Encode(ViewBag.BpVals));
+            var fitnessVals = @Html.Raw(Json.Encode(ViewBag.FitnessVals));
+            var bmiDates = @Html.Raw(Json.Encode(ViewBag.BmiDates));
+            var dietDates = @Html.Raw(Json.Encode(ViewBag.DietDates));
+            var fitnessDates = @Html.Raw(Json.Encode(ViewBag.FitnessDates));
+            var bpDates = @Html.Raw(Json.Encode(ViewBag.BpDates));
+
+            var bmiChart = new Chart($("#bmiChart"), {
+                type: 'line',
+                data: {
+                    //labels: ['one', 'two', 'three', 'four', 'five'],
+                    labels: bmiDates,
+                    datasets: [{
+                        fill: false,
+                        pointRadius: 10,
+				    	pointHoverRadius: 7,
+                        label: 'bmi',
+                        //data: [1, 2, 3, 4, 5],
+                        data: bmiVals,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 0.6)'
+                    }]
+                },
+                options: {
+				    responsive: true,
+				    title: {
+					    display: true,
+                        text: 'BMI',
+                        fontSize: 25
+				    },
+                    tooltips: {
+					    mode: 'index',
+					    intersect: false,
+				    },
+				    hover: {
+					    mode: 'nearest',
+					    intersect: true
+                    },
+                    legend: {
+						display: false
+                    },
+                    elements: {
+						point: {
+							pointStyle: 'circle'
+						}
+					},
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var bmrChart = new Chart($("#bmrChart"), {
+                type: 'line',
+                data: {
+                    labels: bmiDates,
+                    datasets: [{
+                        fill: false,
+                        pointRadius: 10,
+				    	pointHoverRadius: 7,
+                        label: 'bmr',
+                        data: bmrVals,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 0.6)'
+                    }]
+                },
+                options: {
+				    responsive: true,
+				    title: {
+					    display: true,
+                        text: 'BMR',
+                        fontSize: 25
+				    },
+                    tooltips: {
+					    mode: 'index',
+					    intersect: false,
+				    },
+				    hover: {
+					    mode: 'nearest',
+					    intersect: true
+                    },
+                    legend: {
+						display: false
+                    },
+                    elements: {
+						point: {
+							pointStyle: 'circle'
+						}
+					},
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var dietChart = new Chart($("#dietChart"), {
+                type: 'line',
+                data: {
+                    labels: dietDates,
+                    datasets: [{
+                        fill: false,
+                        pointRadius: 10,
+				    	pointHoverRadius: 7,
+                        label: 'diet %',
+                        data: dietVals,
+                        backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 0.6)'
+                    }]
+                },
+                options: {
+				    responsive: true,
+				    title: {
+					    display: true,
+                        text: 'Diet',
+                        fontSize: 25
+				    },
+                    tooltips: {
+					    mode: 'index',
+					    intersect: false,
+				    },
+				    hover: {
+					    mode: 'nearest',
+					    intersect: true
+                    },
+                    legend: {
+						display: false
+                    },
+                    elements: {
+						point: {
+							pointStyle: 'circle'
+						}
+					},
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                max: 100,
+                                min: 0,
+                                stepSize: 10
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var fitnessChart = new Chart($("#fitnessChart"), {
+                type: 'line',
+                data: {
+                    labels: fitnessDates,
+                    datasets: [{
+                        fill: false,
+                        pointRadius: 10,
+				    	pointHoverRadius: 7,
+                        label: 'fitness %',
+                        data: fitnessVals,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 0.6)'
+                    }]
+                },
+                options: {
+				    responsive: true,
+				    title: {
+					    display: true,
+                        text: 'Fitness',
+                        fontSize: 25
+				    },
+                    tooltips: {
+					    mode: 'index',
+					    intersect: false,
+				    },
+				    hover: {
+					    mode: 'nearest',
+					    intersect: true
+                    },
+                    legend: {
+						display: false
+                    },
+                    elements: {
+						point: {
+							pointStyle: 'circle'
+						}
+					},
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                max: 100,
+                                min: 0,
+                                stepSize: 10
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var bpChart = new Chart($("#bpChart"), {
+                type: 'bar',
+                data: {
+                    labels: bpDates,
+                    datasets: [{
+                        fill: false,
+                        pointRadius: 10,
+				    	pointHoverRadius: 7,
+                        label: 'MAP',
+                        data: bpVals,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 99, 132, 0.6)'
+                        ]
+                    }]
+                },
+                options: {
+				    responsive: true,
+				    title: {
+					    display: true,
+                        text: 'Blood pressure (MAP)',
+                        fontSize: 25
+				    },
+                    tooltips: {
+					    mode: 'index',
+					    intersect: false,
+				    },
+				    hover: {
+					    mode: 'nearest',
+					    intersect: true
+                    },
+                    legend: {
+						display: false
+                    },
+                    elements: {
+						point: {
+							pointStyle: 'circle'
+						}
+					},
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                max: 120,
+                                min: 50,
+                                stepSize: 10
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+
+    </script>
+}

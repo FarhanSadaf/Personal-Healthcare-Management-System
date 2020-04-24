@@ -1,0 +1,113 @@
+﻿@model PersonalHealthcareManagementSystem.Models.message.Message
+
+@{
+    ViewBag.Title = "Messages";
+    ViewBag.NavBarId = "Messages";
+}
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col text-center">
+            <h4>Messages from @ViewBag.ToName</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+
+
+            <div class="card">
+                <div class="card-body scroll-message-box-left">
+                    @foreach (var item in ViewBag.ToUsers)
+                    {
+                        <a href="@Url.Action("PopulateFromSpecialists", new { id = item.Id })" style="text-decoration: none; color: black">
+                            <div class="row messages-from mb-2">
+                                <div class="col-3 mt-2">
+                                    <img width="40" class="rounded-circle" src="@Url.Content(item.ImagePath)" />
+                                </div>
+                                <div class="col-9 mt-3">
+                                    @item.Name
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-9">
+            <div class="card mb-4">
+                <div class="card-body scroll-message-box-right-s">
+
+                    @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+                    {
+                        foreach (var item in ViewBag.Messages)
+                        {
+                            if (!item.SentByUser)
+                            {
+                                <div class="row">
+                                    <div class="col text-left">
+                                        <div class="row">
+                                            <div class="col-1 text-right">
+                                                <img width="50" class="rounded-circle" src="@Url.Content(ViewBag.FromImg)" />
+                                            </div>
+                                            <div class="col-11">
+                                                <h6>@ViewBag.ToName</h6>
+                                                <p>@item.Text</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col text-right">
+                                        <div class="row">
+                                            <div class="col-11">
+                                                <h6>You</h6>
+                                                <p>@item.Text</p>
+                                            </div>
+                                            <div class="col-1 text-left">
+                                                <img width="50" class="rounded-circle" src="~/Images/teenage.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.From)
+                @Html.HiddenFor(model => model.To)
+                @Html.HiddenFor(model => model.SentByUser)
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row mr-2">
+                    <div class="col-11">
+                        @Html.TextBoxFor(model => model.Text, htmlAttributes: new { @class = "form-control", @rows = "1", @placeholder = "Type a message.." })
+                    </div>
+                    <div class="col-1 text-right">
+                        <input type="submit" value="Send" class="btn btn-secondary" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.card-body').animate({ scrollTop: /*$(document).height()*/ 9999999 }, 0);
+            //$('.card-body').animate({ scrollTop: 0 }, 1000);
+            $('#Text').focus();
+        });
+    </script>
+}

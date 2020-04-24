@@ -1,0 +1,63 @@
+﻿
+html {
+    scroll-behavior: smooth;
+}
+
+.banner-head {
+    margin: 20px 100px 10px 100px;
+}
+
+.banner-text {
+    margin-top: auto;
+}
+
+.banner-btn {
+    margin-top: 3%;
+}
+
+.chart {
+    width: 110px;
+    height: 110px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    line-height: 110px;
+}
+
+    .chart canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+.scroll-message-box-right {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.scroll-message-box-right-s {
+    height: 400px;
+    overflow-y: auto;
+}
+
+.messages-from {
+    border: 0.5px solid #ddd;
+    height: 55px;
+    border-radius: 25px;
+}
+    .messages-from:hover {
+        background-color: #c2e8ea;
+        border: 0px solid #ccc;
+    }
+
+.scroll-message-box-left {
+    height: 460px;
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 770px) {
+    .banner-head {
+        margin: 10px;
+    }
+}

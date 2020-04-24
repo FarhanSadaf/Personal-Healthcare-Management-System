@@ -1,0 +1,178 @@
+﻿@model PersonalHealthcareManagementSystem.Models.all.TestResult
+
+@{
+    ViewBag.Title = "Result";
+}
+
+<div class="container">
+    <div class="card border-info mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col text-center">
+                    <p style="font-size: 40px" class="mb-0">Results</p>
+                    <p class="mb-4">Date: @Model.TestDate.ToShortDateString()</p>
+                </div>
+            </div>
+            <!--Overall-->
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 m-auto">
+                            <div class="chart" data-percent="@Convert.ToInt32(ViewBag.overallFeedback[0])">@Convert.ToInt32(ViewBag.overallFeedback[0])%</div>
+                        </div>
+                        <div class="col-md-8">
+                            <p style="font-size: 30px; margin: 0 0 5px 0;">Overall</p>
+                            <p style="font-size: 20px;">Your ideal weight is @Convert.ToInt32(ViewBag.IdealWeight) kg.</p>
+                            <p>@ViewBag.overallFeedback[1]</p>
+
+                            <!--condition-->
+                            <p class="mb-0 text-danger">Areas where you lost most points:</p>
+                            @foreach (string sector in ViewBag.badSectors)
+                            {
+                                <p class="m-0">-@sector</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Bmi-->
+            <div class="card border-secondary mt-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 m-auto">
+                            <div class="chart" data-percent="@Convert.ToInt32(ViewBag.bmiPercentage)">@Convert.ToInt32(ViewBag.bmiPercentage)%</div>
+                        </div>
+                        <div class="col-md-8">
+                            <p style="font-size: 30px; margin: 0 0 5px 0;">BMI : @String.Format("{0:0.##}", Model.Bmi) </p>
+                            <p style="font-size: 20px; margin-bottom: 0;">@ViewBag.BMIFeedback[0]</p>
+                            <p>@ViewBag.BMIFeedback[1]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Bmr-->
+            <div class="card border-secondary mt-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 m-auto">
+                            <div class="chart" data-percent="@Convert.ToInt32(ViewBag.bmrPercentage)">@Convert.ToInt32(ViewBag.bmrPercentage)%</div>
+                        </div>
+                        <div class="col-md-8">
+                            <p style="font-size: 30px; margin: 0 0 5px 0;">BMR : @Convert.ToInt32(Model.Bmr)</p>
+                            <p>@ViewBag.BMRFeedback</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Session["DietIsNull"] != null && !Convert.ToBoolean(Session["DietIsNull"]))
+            {
+                <!--Diet-->
+                <div class="card border-secondary mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 m-auto">
+                                <div class="chart" data-percent="@Convert.ToInt32(Model.DietPercentage)">@Convert.ToInt32(Model.DietPercentage)%</div>
+                            </div>
+                            <div class="col-md-8">
+                                <p style="font-size: 30px; margin: 0 0 5px 0;">Diet</p>
+                                <p>@ViewBag.DietFeedback</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Session["SmokingIsNull"] != null && !Convert.ToBoolean(Session["SmokingIsNull"]))
+            {
+                <!--Smoking-->
+                <div class="card border-secondary mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 m-auto">
+                                <div class="chart" data-percent="@Convert.ToInt32(Model.SmokingPercentage)">@Convert.ToInt32(Model.SmokingPercentage)%</div>
+                            </div>
+                            <div class="col-md-8">
+                                <p style="font-size: 30px; margin: 0 0 5px 0;">Smoking</p>
+                                <p>@ViewBag.SmokingFeedback</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Session["AlcoholIsNull"] != null && !Convert.ToBoolean(Session["AlcoholIsNull"]))
+            {
+                <!--Alcohol-->
+                <div class="card border-secondary mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 m-auto">
+                                <div class="chart" data-percent="@Convert.ToInt32(Model.AlcoholPercentage)">@Convert.ToInt32(Model.AlcoholPercentage)%</div>
+                            </div>
+                            <div class="col-md-8">
+                                <p style="font-size: 30px; margin: 0 0 5px 0;">Alcohol</p>
+                                <p>@ViewBag.AlcoholFeedback</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Session["FitnessIsNull"] != null && !Convert.ToBoolean(Session["FitnessIsNull"]))
+            {
+                <!--Fitness-->
+                <div class="card border-secondary mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 m-auto">
+                                <div class="chart" data-percent="@Convert.ToInt32(Model.FitnessPercentage)">@Convert.ToInt32(Model.FitnessPercentage)%</div>
+                            </div>
+                            <div class="col-md-8">
+                                <p style="font-size: 30px; margin: 0 0 5px 0;">Fitness</p>
+                                <p>@ViewBag.FitnessFeedback</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Session["BpIsNull"] != null && !Convert.ToBoolean(Session["BpIsNull"]))
+            {
+                <!--Blood Pressure-->
+                <div class="card border-secondary mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 m-auto">
+                                <div class="chart" data-percent="@Convert.ToInt32(ViewBag.bpPercentage)">@Convert.ToInt32(ViewBag.bpPercentage)%</div>
+                            </div>
+                            <div class="col-md-8">
+                                <p style="font-size: 30px; margin: 0 0 5px 0;">Blood Pressure</p>
+                                <p style="font-size: 20px; margin-bottom: 0;">@ViewBag.BpFeedback</p>
+                                <p style="margin-bottom: 0">MAP (mean arterial pressure) : @Model.BpMap</p>
+                                <p>It is recommended that mean arterial pressure (MAP) be maintained ≥ 65 mm Hg</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Back to home", "Index")
+    </p>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('.chart').easyPieChart({
+                barColor: "#008000",
+                scaleColor: "#ffffff"
+            });
+        });
+    </script>
+}

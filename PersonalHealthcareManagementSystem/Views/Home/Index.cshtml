@@ -1,0 +1,683 @@
+﻿@model PersonalHealthcareManagementSystem.Models.all.Test
+@{
+    ViewBag.Title = "Home Page";
+    ViewBag.NavBarId = "Index";
+}
+
+<!--Banner-->
+<div class="row">
+    <div class="col">
+        <div class="card border-success banner-head">
+            <div class="card-body p-5">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img height="200px" src="~/Images/doctor.png" />
+                    </div>
+                    <div class="col-md-8 text-left banner-text">
+                        <h2>Personal Healthcare Management App</h2>
+                        <p style="font-size: 20px">Click on the button to get your health rating</p>
+                        <a href="#form"><button type="button" class="btn btn-success btn-lg banner-btn">Take Test</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2>Our Features</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img width="80px" src="~/Images/like.png" />
+            <h4>Get your health rating</h4>
+            <p>Fillup form with your current helth informations and get a rating based on these informations upon different parameters.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img width="70px" style="margin-top: 10px" src="~/Images/heart-rate.png" />
+            <h4>Save your health infos</h4>
+            <p>You can your health ratings tested in different times so that you can check on your health over time.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img width="80px" src="~/Images/doctor (1).png" />
+            <h4>Contact with Specialists</h4>
+            <p>Chat with health specialists like doctor, physicists and talk with them about your health conditions. </p>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="form" style="margin-bottom: 100px"></div>
+<!--Form-->
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <div class="card border-info">
+                    <div class="row text-center pt-4">
+                        <div class="col">
+                            <img width="100px" src="~/Images/woman.png" />
+                            <h2>Check your health profile</h2>
+                            <p>Enter your data to get your health profile rating.</p>
+                        </div>
+                    </div>
+                    <div class="card-body pt-3 pl-5 pr-5 pb-4">
+                        <div class="form-group">
+                            <h6>Gender</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @*<input type="radio" id="male" name="Gender" value="male">*@
+                                    @Html.RadioButton("Gender", "male", false, new { @id="male" })
+                                    <label for="male">Male</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @*<input type="radio" id="female" name="Gender" value="female" />*@
+                                    @Html.RadioButton("Gender", "female", false, new { @id = "female" })
+                                    <label for="female">Female</label>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Age"><h6>Age</h6></label>
+                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @placeholder = "age" } })
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="HeightF"><h6>Height</h6></label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.EditorFor(model => model.HeightF, new { htmlAttributes = new { @class = "form-control", @placeholder="feet" } })
+                                    @Html.ValidationMessageFor(model => model.HeightF, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.EditorFor(model => model.HeightI, new { htmlAttributes = new { @class = "form-control", @placeholder = "inches" } })
+                                    @Html.ValidationMessageFor(model => model.HeightI, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Weight"><h6>Weight</h6></label>
+                            @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control", @placeholder = "kg" } })
+                            @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>Diet</h6>
+                                    <p style="font-size: 12px">This will take less than 2 minutes.</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <button type="button" class="btn btn-outline-info mt-2" data-toggle="modal" data-target="#dietModal">Take Test</button>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="dietModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalLabel">How often do you intake ... ?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-5 text-center">
+                                                        <h6>Fruits</h6>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="RarelyF" name="Fruits" value="Rarely">
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="RarelyF">Rarely</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="SometimesF" name="Fruits" value="Sometimes" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="SometimesF">Sometimes</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="OftenF" name="Fruits" value="Often" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="OftenF">Often</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-5 text-center">
+                                                        <h6>Vegetables</h6>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="RarelyV" name="Vegetables" value="Rarely">
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="RarelyV">Rarely</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="SometimesV" name="Vegetables" value="Sometimes" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="SometimesV">Sometimes</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="OftenV" name="Vegetables" value="Often" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="OftenV">Often</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-5 text-center">
+                                                        <h6>Fish</h6>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="RarelyFi" name="Fish" value="Rarely">
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="RarelyFi">Rarely</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="SometimesFi" name="Fish" value="Sometimes" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="SometimesFi">Sometimes</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="OftenFi" name="Fish" value="Often" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="OftenFi">Often</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-5 text-center">
+                                                        <h6>
+                                                            Whole grain products
+                                                            (brown bread, brown rice etc.)
+                                                        </h6>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="RarelyW" name="Wholegrain" value="Rarely">
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="RarelyW">Rarely</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="SometimesW" name="Wholegrain" value="Sometimes" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="SometimesW">Sometimes</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="OftenW" name="Wholegrain" value="Often" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="OftenW">Often</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-5 text-center">
+                                                        <h6>
+                                                            Fastfood
+                                                            (Pizza, burger etc.)
+                                                        </h6>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="RarelyFa" name="Fastfood" value="Rarely">
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="RarelyFa">Rarely</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="SometimesFa" name="Fastfood" value="Sometimes" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="SometimesFa">Sometimes</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="OftenFa" name="Fastfood" value="Often" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="OftenFa">Often</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-5 text-center">
+                                                        <h6>
+                                                            More than 50 grams of sweets (candy, ice cream, cake)
+                                                        </h6>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="RarelyS" name="Sweets" value="Rarely">
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="RarelyS">Rarely</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="SometimesS" name="Sweets" value="Sometimes" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="SometimesS">Sometimes</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="OftenS" name="Sweets" value="Often" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="OftenS">Often</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-5 text-center">
+                                                        <h6>
+                                                            Sweetened beverages
+                                                            (Soft drinks, limonade)
+                                                        </h6>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="RarelyB" name="Beverages" value="Rarely">
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="RarelyB">Rarely</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="SometimesB" name="Beverages" value="Sometimes" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="SometimesB">Sometimes</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="text-center">
+                                                                    <input type="radio" id="OftenB" name="Beverages" value="Often" />
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <label for="OftenB">Often</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <p><strong>INFO:</strong> Rarely = less than once a week, Some times =  1-2 times a week, Often = more than two times a week</p>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>Smoking</h6>
+                                    <p style="font-size: 12px">This will take less than 1 minute.</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <button type="button" class="btn btn-outline-info mt-2" data-toggle="modal" data-target="#smokingModal">Take Test</button>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="smokingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">How much do you smoke on an average day?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="s0" name="Smoking" value="0" />
+                                                        <label for="s0">
+                                                            I smoke more than 20 cigarettes a day
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="s1" name="Smoking" value="1" />
+                                                        <label for="s1">
+                                                            I smoke between 5 and 20 cigarettes a day
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="s2" name="Smoking" value="2" />
+                                                        <label for="s2">
+                                                            I smoke 1 to 5 cigarettes a day
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="s3" name="Smoking" value="3" />
+                                                        <label for="s3">
+                                                            I used to smoke, but I quit
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="s4" name="Smoking" value="4" />
+                                                        <label for="s4">
+                                                            I don't smoke, but I am often in locations where other people are smoking
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="s5" name="Smoking" value="5" />
+                                                        <label for="s5">
+                                                            I don't smoke
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>Alcohol</h6>
+                                    <p style="font-size: 12px">This will take less than 1 minute.</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <button type="button" class="btn btn-outline-info mt-2" data-toggle="modal" data-target="#alcoholModal">Take Test</button>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="alcoholModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">How many drinks do you consume in a typical week?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="a0" name="Alcohol" value="0" />
+                                                        <label for="a0">
+                                                            More than 21 drinks
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="a1" name="Alcohol" value="1" />
+                                                        <label for="a1">
+                                                            15 to 21 drinks
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="a2" name="Alcohol" value="2" />
+                                                        <label for="a2">
+                                                            1 to 14 drinks
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="a3" name="Alcohol" value="3" />
+                                                        <label for="a3">
+                                                            0 drinks
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>Fitness test</h6>
+                                    <p style="font-size: 12px">This will take less than 1 minute.</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <button type="button" class="btn btn-outline-info mt-2" data-toggle="modal" data-target="#fitnessModal">Take Test</button>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="fitnessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">How many drinks do you consume in a typical week?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="f0" name="Fitness" value="0" />
+                                                        <label for="f0">
+                                                            More than 1 hour – I will walk slowly and take several breaks
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="f1" name="Fitness" value="1" />
+                                                        <label for="f1">
+                                                            1 hour - I will walk all the way in a normal pace
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="f2" name="Fitness" value="2" />
+                                                        <label for="f2">
+                                                            45 minutes– I will walk all the way in a fast pace
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="f3" name="Fitness" value="3" />
+                                                        <label for="f3">
+                                                            35 minutes – I will run in at an easy pace and take a few walking breakes
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="f4" name="Fitness" value="4" />
+                                                        <label for="f4">
+                                                            30 minutes – I will run all the way in a moderate pace
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="f5" name="Fitness" value="5" />
+                                                        <label for="f5">
+                                                            25 minutes – I will run all the way in a relatively high pace
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="f6" name="Fitness" value="6" />
+                                                        <label for="f6">
+                                                            20 minutes – I will run all the way in a very high pace
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="radio" id="f7" name="Fitness" value="7" />
+                                                        <label for="f7">
+                                                            18 minutes – I will run all the way and put most other runners behind me
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>Blood Pressure</h6>
+                                    <p style="font-size: 12px">This will take less than 2 minutes.</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <button type="button" class="btn btn-outline-info mt-2" data-toggle="modal" data-target="#bpModal">Take Test</button>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="bpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Blood pressure</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>If you have access to an electronic blood pressure device, then this is an easy way to measure your blood pressure. Make sure you follow the instructions that came with the device.</p>
+                                                <p>You can also ask to have it measured the next time you visit your doctor.</p>
+                                                <p>Blood pressure is measured with to different numbers. <strong>The lower one is the diastolic</strong> blood pressure and <strong>the higher one is the systolic</strong>.</p>
+                                                <hr />
+                                                <div class="form-group">
+                                                    <label for="Systolic"><h6>Systolic</h6></label>
+                                                    <input type="number" class="form-control" id="Systolic" name="Systolic" placeholder="mmHg (100-120 normal)">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Diastolic"><h6>Diastolic</h6></label>
+                                                    <input type="number" class="form-control" id="Diastolic" name="Diastolic" placeholder="mmHg (60-80 normal)">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 mx-auto">
+                                <input type="submit" value="Check" class="btn btn-block btn-outline-secondary" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

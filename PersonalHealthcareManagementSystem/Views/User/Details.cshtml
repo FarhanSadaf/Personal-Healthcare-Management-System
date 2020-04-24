@@ -1,0 +1,40 @@
+﻿@model PersonalHealthcareManagementSystem.Models.user.User
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.NavBarId = "Profile";
+}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto mt-5 mb-4">
+                <div class="card border-dark">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col text-center">
+                                <img width="130" src="~/Images/teenage.png" />
+                                <h3>Details</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-right"><b>Full Name</b></div>
+                            <div class="col-6">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-right"><b>@Html.DisplayNameFor(model => model.EmailId)</b></div>
+                            <div class="col-6">@Html.DisplayFor(model => model.EmailId)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-right"><b>@Html.DisplayNameFor(model => model.DateOfBirth)</b></div>
+                            <div class="col-6">@Model.DateOfBirth.ToLongDateString()</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mx-auto mt-4">
+                                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @style="color: white", @class="btn btn-dark btn-block" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

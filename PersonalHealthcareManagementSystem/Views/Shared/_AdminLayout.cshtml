@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    @RenderSection("styles", false)
+    <title>@ViewBag.Title</title>
+
+</head>
+<body>
+    <!--NavBar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <a href="/Home/Index"><img src="~/Images/medical.png" style="height: 50px" alt="PHMS" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a href="/Admin/Index" id="Index" class="nav-link">Index</a></li>
+                <li class="nav-item"><a href="/Admin/AddSpecialist" id="AddSpecialist" class="nav-link">Add specialist</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item"><a href="/Admin/Logout" id="Logout" class="nav-link">Logout</a></li>
+                <li class="nav-item"><a href="#" id="" class="nav-link">Admin - @Session["adminId"]</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--Main-->
+    <div class="body-content">
+        @RenderBody()
+    </div>
+
+    <hr />
+    <footer class="pl-5">
+        <p>&copy; @DateTime.Now.Year - Farhan Sadaf</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/jquery.easypiechart.js"></script>
+    <script src="~/Scripts/popper.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#@ViewBag.NavBarId").addClass("active");
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

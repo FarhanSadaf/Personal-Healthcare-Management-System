@@ -1,0 +1,54 @@
+﻿@model PersonalHealthcareManagementSystem.Models.specialist.Specialist
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.NavBarId = "Details";
+    Layout = "~/Views/Shared/_SpecialistLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto mt-5 mb-4">
+            <div class="card border-dark">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            <img src="@Url.Content(Model.ImagePath)" width="130" />
+                            <h3>Details</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right"><b>@Html.DisplayNameFor(model => model.Name)</b></div>
+                        <div class="col-6">@Html.DisplayFor(model => model.Name)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right"><b>@Html.DisplayNameFor(model => model.Occupation)</b></div>
+                        <div class="col-6">@Html.DisplayFor(model => model.Occupation)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right"><b>@Html.DisplayNameFor(model => model.Workplace)</b></div>
+                        <div class="col-6">@Html.DisplayFor(model => model.Workplace)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right"><b>@Html.DisplayNameFor(model => model.Description)</b></div>
+                        <div class="col-6">@Html.DisplayFor(model => model.Description)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right"><b>@Html.DisplayNameFor(model => model.Email)</b></div>
+                        <div class="col-6">@Html.DisplayFor(model => model.Email)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right"><b>@Html.DisplayNameFor(model => model.PhoneNo)</b></div>
+                        <div class="col-6">@Html.DisplayFor(model => model.PhoneNo)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mx-auto mt-4">
+                            @Html.ActionLink("Edit", "Edit", null, new { @style = "color: white", @class = "btn btn-dark btn-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

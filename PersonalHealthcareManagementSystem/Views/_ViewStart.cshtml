@@ -1,0 +1,9 @@
+﻿@if (Session["userId"] != null || !HttpContext.Current.User.Identity.Name.Equals(""))
+{
+    Session["userId"] = HttpContext.Current.User.Identity.Name;
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}

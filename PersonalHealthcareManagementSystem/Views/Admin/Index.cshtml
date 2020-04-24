@@ -1,0 +1,178 @@
+﻿@model IEnumerable<PersonalHealthcareManagementSystem.Models.specialist.Specialist>
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.NavBarId = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <h2>Index</h2>
+    <p>
+        @Html.ActionLink("Create New", "AddSpecialist")
+    </p>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="@Url.Content(item.ImagePath)" class="img-fluid" />
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>@Html.DisplayFor(modelItem => item.Name)</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>@Html.DisplayNameFor(model => model.Occupation) : </b>
+                                            @Html.DisplayFor(modelItem => item.Occupation) |
+                                            <b>@Html.DisplayNameFor(model => model.Workplace) : </b>
+                                            @Html.DisplayFor(modelItem => item.Workplace)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <small>
+                                                <b>@Html.DisplayNameFor(model => model.Description) : </b>
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>@Html.DisplayNameFor(model => model.Email) : </b>
+                                            @Html.DisplayFor(modelItem => item.Email) |
+                                            <b>@Html.DisplayNameFor(model => model.PhoneNo) : </b>
+                                            @Html.DisplayFor(modelItem => item.PhoneNo)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditSpecialist", new { id = item.Id }, new { @class = "btn btn-outline-warning btn-block" })
+                        @Html.ActionLink("Details", "DetailsSpecialist", new { id = item.Id }, new { @class = "btn btn-outline-success btn-block" })
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#deleteModal-@item.Id">
+                            Delete
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal-@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Delete @item.Name permanently
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        @Html.ActionLink("Delete", "DeleteSpecialist", new { id = item.Id }, new { @class = "btn btn-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @*<table class="table">
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Occupation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Workplace)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNo)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@Url.Content(item.ImagePath)" width="100px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Occupation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Workplace)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNo)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditSpecialist", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "DetailsSpecialist", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "DeleteSpecialist", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>*@
+</div>
+
+@section scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".table").dataTable({
+                responsive: true
+            });
+        });
+    </script>
+}
+
+@section styles{
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}

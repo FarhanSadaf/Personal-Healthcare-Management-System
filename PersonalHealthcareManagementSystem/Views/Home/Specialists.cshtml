@@ -1,0 +1,96 @@
+﻿@model IEnumerable<PersonalHealthcareManagementSystem.Models.specialist.Specialist>
+
+@{
+    ViewBag.Title = "Specialists";
+    ViewBag.NavBarId = "Specialists";
+}
+
+<div class="container">
+    <div class="row mt-2">
+        <div class="col text-center">
+            <h3>Specialists</h3>
+            <p>Health experts who may help you on your health regard</p>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th></th>
+                @if (Session["userId"] != null)
+                {
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="@Url.Content(item.ImagePath)" class="img-fluid" />
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>@Html.DisplayFor(modelItem => item.Name)</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>@Html.DisplayNameFor(model => model.Occupation) : </b>
+                                            @Html.DisplayFor(modelItem => item.Occupation) |
+                                            <b>@Html.DisplayNameFor(model => model.Workplace) : </b>
+                                            @Html.DisplayFor(modelItem => item.Workplace)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <small>
+                                                <b>@Html.DisplayNameFor(model => model.Description) : </b>
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>@Html.DisplayNameFor(model => model.Email) : </b>
+                                            @Html.DisplayFor(modelItem => item.Email) |
+                                            <b>@Html.DisplayNameFor(model => model.PhoneNo) : </b>
+                                            @Html.DisplayFor(modelItem => item.PhoneNo)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    @if (Session["userId"] != null)
+                    {
+                        <td>
+                            @Html.ActionLink("Chat", "ToSpecialist", "Message", new { id = item.Id }, new { @class="btn btn-outline-dark"})
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".table").dataTable({
+                responsive: true
+            });
+        });
+    </script>
+}
+
+@section styles{
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}

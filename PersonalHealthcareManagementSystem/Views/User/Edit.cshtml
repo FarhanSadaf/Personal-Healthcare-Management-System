@@ -1,0 +1,118 @@
+﻿@model PersonalHealthcareManagementSystem.Models.user.EditUserModel
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.NavBarId = "Profile";
+}
+
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-7 mx-auto mt-3">
+                    <div class="card border-success">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <img width="120px" src="~/Images/kyc.png" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h3>Edit</h3>
+                                    <p>Hello, <b>@HttpContext.Current.User.Identity.Name</b></p>
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="row">
+                                    <div class="col">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 mx-auto">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label " })
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 mx-auto">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 mx-auto">
+                                        <div class="form-group">
+                                            <label for="DateOfBirth">Date of Birth</label>
+                                            <input type="text" name="DateOfBirth" id="DateOfBirth" class="form-control" value="@Model.DateOfBirth.ToShortDateString()" />
+                                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 mx-auto">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.PreviousPassword, htmlAttributes: new { @class = "control-label " })
+                                            @Html.EditorFor(model => model.PreviousPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.PreviousPassword, "", new { @class = "text-danger" })
+                                            <p>@Html.ValidationMessage("PasswordMismatch", new { @class = "text-danger" })</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 mx-auto">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label " })
+                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 mx-auto">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 mx-auto">
+                                        <div class="form-group">
+                                            <input type="submit" value="Save" class="btn btn-success btn-block" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#DateOfBirth").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1940:2010',
+                dateFormat: "d MM, yy"
+            });
+        });
+    </script>
+}
