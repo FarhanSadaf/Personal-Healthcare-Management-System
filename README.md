@@ -1,5 +1,5 @@
 # Personal Healthcare Management System
-This is a healthcare management based Web Project using ASP.NET MVC and MS SQL server for database.
+This is a healthcare management based Web development project using ASP.NET MVC and MS SQL server for database.
 
 Functionalities:
 
